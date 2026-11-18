@@ -2,7 +2,7 @@
 
 | Day | Topic | Status | Notes / weak spots to revisit |
 |-----|-------|--------|-------------------------------|
-| 1 | JavaScript, TypeScript & Setup | ⏳ In progress | Tools verified: Node 24.16, npm 10.9, Git, VS Code, Docker. Steps 1–4 ✅ (Step 2 practice done well: nested spread, `toSorted`, add/remove array items). **Pending for Step 8 checkpoint:** Step 3 tasks 2–5 + check Qs (forced failure, 1ms timeout, 404 & `res.ok`, `Promise.all` vs `allSettled`); Step 4 tasks 2–5 + check Qs (read tsc errors, add `'empty'` LoadState case, optional `address`). |
+| 1 | JavaScript, TypeScript & Setup | ✅ Done 2026-11-18 | All 8 steps + "Done when" checklist ✅ (dev, lint, format, typecheck, build, `.nvmrc`/`engines`). **Strong:** spread/immutability, `??` vs `||`, reading tsc errors, debugging the broken fetch (found all 5 bugs). **Revisit:** ① microtask (Promise/await) vs macrotask (setTimeout) names — on Day 4; JS *hands off* waiting work, `await` pauses only that function. ② Render cycle order: trigger → render (no DOM) → reconcile → commit (= DOM update). ③ StrictMode double-runs effects mount→cleanup→mount (Day 4). ④ Why index keys break on sort/filter (Day 3 search). ⑤ Truthy `if (x?.y)` ≠ `??` for `''`. ⑥ Save `setTimeout` IDs to clear them. Notes: `notes/day-01.md`. |
 | 2 | Components, Props, Refs | ⬜ | |
 | 3 | State, Events, Forms | ⬜ | |
 | 4 | Hooks, Effects, Concurrency | ⬜ | |

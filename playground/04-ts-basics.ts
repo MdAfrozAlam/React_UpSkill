@@ -12,12 +12,18 @@ interface Employee {
   name: string;
   dept: Department;
   email?: string; // optional
+  address?: { city: string; pin: string };
+
   readonly joinedOn: string; // can't be changed after creation
 }
 
 const asha: Employee = { id: 1, name: 'Asha', dept: 'IT', joinedOn: '2024-01-10' };
-// const bad: Employee = { id: 2, name: 'Ravi', dept: 'Sales', joinedOn: '' }; // ❌ 'Sales' not allowed
-// asha.joinedOn = '2025-01-01'; // ❌ readonly
+const ravi: Employee = {
+  id: 2, name: 'Ravi', dept: 'HR', joinedOn: '2025-03-01',
+  address: { city: 'Pune', pin: '411001' },
+};
+ //const bad: Employee = { id: 2, name: 'Ravi', dept: 'Sales', joinedOn: '' }; // ❌ 'Sales' not allowed
+ //asha.joinedOn = '2025-01-01'; // ❌ readonly
 
 // 3️⃣ Typed functions — input types and return type
 const formatEmployee = (e: Employee): string => `${e.name} (${e.dept})`;
@@ -26,6 +32,21 @@ console.log(formatEmployee(asha));
 // 4️⃣ Optional field → must handle "maybe undefined"
 const getEmail = (e: Employee): string => e.email ?? 'no email';
 console.log(getEmail(asha));
+
+const getCity = (e: Employee): string => e.address?.city ?? 'unknown city';
+console.log(getCity(asha));
+
+const getCity2 = (e: Employee): string => {
+  if ( e.address?.city) {
+    return e.address.city;
+  }
+  return 'unknown city';
+};
+console.log(getCity2(asha));
+
+console.log(getCity(ravi), 
+getCity2(ravi));
+
 
 // 5️⃣ Generics — one function, many types, still safe
 const firstItem = <T>(items: T[]): T | undefined => items[0];
@@ -52,6 +73,7 @@ if (isEmployeeLike(raw)) {
 // 7️⃣ Union + narrowing — handle each case
 type LoadState =
   | { status: 'loading' }
+  | {status:'empty'}
   | { status: 'error'; message: string }
   | { status: 'success'; data: Employee[] };
 
@@ -59,6 +81,9 @@ const describe = (s: LoadState): string => {
   switch (s.status) {
     case 'loading':
       return 'Loading…';
+
+    case 'empty' :
+      return 'No employees yet'
     case 'error':
       return `Error: ${s.message}`; // message exists only here
     case 'success':
