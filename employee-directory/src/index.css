@@ -45,30 +45,30 @@ input[type='search'] {
   padding: 0.5rem;
   font-size: 1rem;
 }
-.grid {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-.card {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-}
-.card h2 {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-}
-.status.active {
-  color: #15803d;
-}
-.status.inactive {
-  color: #6b7280;
-}
+
 :focus-visible {
   outline: 3px solid #f59e0b;
   outline-offset: 2px;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  list-style: none;
+  padding: 0;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.5);
+  display: grid;
+  place-items: center;
+}
+.dialog {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  min-width: min(90vw, 360px);
 }

@@ -1,17 +1,36 @@
 import type { Employee } from '../types/employee';
+import styles from './EmployeeCard.module.css';
+import { useState } from 'react';
+import { Dialog } from '../../../shared/components/Dialog';
 
-export function EmployeeCard({ employee }: { employee: Employee }) {
+type EmployeeCardProps = {
+  employee: Employee;
+  showEmail?: boolean;
+};
+
+export function EmployeeCard({ employee, showEmail = true }: EmployeeCardProps) {
+  // inside EmployeeCard, before return:
+  const [open, setOpen] = useState(false);
   return (
-    <article className="card">
+    <article className={styles.card}>
       <h2>{employee.name}</h2>
       <p>{employee.role}</p>
       <p>
         {employee.department} · {employee.location}
       </p>
-      <a href={`mailto:${employee.email}`}>{employee.email}</a>
-      <p className={employee.isActive ? 'status active' : 'status inactive'}>
+      {showEmail && <a href={`mailto:${employee.email}`}>{employee.email}</a>}
+      <p className={employee.isActive ? styles.active : styles.inactive}>
         {employee.isActive ? 'Active' : 'Inactive'}
       </p>
+      <button type="button" onClick={() => setOpen(true)}>
+        View details
+      </button>
+
+      <Dialog open={open} title={employee.name} onClose={() => setOpen(false)}>
+        <p>
+          {employee.role} · {employee.department} · {employee.location}
+        </p>
+      </Dialog>
     </article>
   );
 }
